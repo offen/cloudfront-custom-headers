@@ -1,4 +1,4 @@
-exports.handler = (event, context, callback) => {
+exports.handler = function (event, context, callback) {
   var response = event.Records[0].cf.response
   var headers = response.headers
 
@@ -9,7 +9,7 @@ exports.handler = (event, context, callback) => {
 
   headers['content-security-policy'] = [{
     key: 'Content-Security-Policy',
-    value: 'default-src https://*.offen.dev'
+    value: "default-src https://*.offen.dev 'unsafe-inline'"
   }]
 
   headers['x-content-type-options'] = [{
