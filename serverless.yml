@@ -1,0 +1,30 @@
+service: cloudfront-custom-headers
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: us-east-1
+  memorySize: 128
+  timeout: 5
+
+resources:
+  Resources:
+    LambdaAtEdgeRole:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: lambda-at-edge-role
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+                  - edgelambda.amazonaws.com
+              Action: sts:AssumeRole
+        ManagedPolicyArns:
+          - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+functions:
+  custom-headers:
+    handler: index.handler
+    role: LambdaAtEdgeRole
