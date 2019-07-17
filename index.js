@@ -4,12 +4,12 @@ exports.handler = function (event, context, callback) {
 
   headers['strict-transport-security'] = [{
     key: 'Strict-Transport-Security',
-    value: 'max-age=31536000; includeSubdomains; preload'
+    value: 'max-age=604800; includeSubDomains'
   }]
 
   headers['content-security-policy'] = [{
     key: 'Content-Security-Policy',
-    value: "default-src https://*.offen.dev 'unsafe-inline'"
+    value: 'default-src https://*.offen.dev'
   }]
 
   headers['x-content-type-options'] = [{
@@ -24,7 +24,7 @@ exports.handler = function (event, context, callback) {
 
   headers['referrer-policy'] = [{
     key: 'Referrer-Policy',
-    value: 'same-origin'
+    value: 'origin-when-cross-origin'
   }]
 
   callback(null, response)
